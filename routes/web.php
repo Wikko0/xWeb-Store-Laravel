@@ -30,6 +30,7 @@ Route::get('/contact', [ContactController::class, 'index'])->name('Contact');
 Route::post('/contact', [ContactController::class, 'contact']);
 Route::get('/about', [AboutController::class, 'index'])->name('About Us');
 
+
 // Admin Panel
 Route::get('/adminlogin', [AdminLogin::class, 'login'])->name('Admin Login');
 Route::post('/adminlogin', [AdminLogin::class, 'do_login']);
