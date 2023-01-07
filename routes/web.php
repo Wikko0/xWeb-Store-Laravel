@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLogin;
+use App\Http\Controllers\PaymentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,13 @@ Route::get('/account', [AccountController::class, 'index'])->name('Account');
 Route::get('/contact', [ContactController::class, 'index'])->name('Contact');
 Route::post('/contact', [ContactController::class, 'contact']);
 Route::get('/about', [AboutController::class, 'index'])->name('About Us');
+
+
+//Payments
+Route::get('/payment', [PaymentController::class, 'index'])->name('Payment');
+Route::post('/charge', [PaymentController::class, 'charge']);
+Route::get('/success', [PaymentController::class, 'success'])->name('Success Payment');
+Route::get('/error', [PaymentController::class, 'error'])->name('Error');
 
 
 // Admin Panel
