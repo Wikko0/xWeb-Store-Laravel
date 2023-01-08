@@ -6,6 +6,26 @@
     <main>
         <section class="our-services">
             <div class="container">
+                <div class="col-md-12">
+                    @if(session('success'))
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                            </button>
+                            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                            <ul>{{session('success')}}</ul>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
+                            </button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i> Alert!</h5>
+                            @foreach ($errors->all() as $error)
+                                <ul>{{ $error }}</ul>
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
         <div class="app">
             <div class="closewindow">
                 <span>x</span>
@@ -19,60 +39,16 @@
                 <ul class="list">
                 </ul>
             </div>
-            <div class="openpopup">
-                Check out
-            </div>
+            <form action="/charge" method="post">
+                @csrf
+                <input type="hidden" name="amount" value="50">
+
+                    <input type="submit" value="Check out" class="openpopup">
+                 </form>
+
             <div class="openpopup2">
                 Clear Cart
             </div>
-        </div>
-        <div class="b-popup" id="popup1">
-            <div id="smart-button-container">
-                <div style="text-align: center;">
-                    <div id="paypal-button-container"></div>
-                </div>
-            </div>
-            <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
-            <script>
-                function initPayPalButton() {
-                    paypal.Buttons({
-                        style: {
-                            shape: 'rect',
-                            color: 'gold',
-                            layout: 'vertical',
-                            label: 'buynow',
-
-                        },
-
-                        createOrder: function(data, actions) {
-                            return actions.order.create({
-                                purchase_units: [{"description":"XWeb CMS","amount":{"currency_code":"USD","value":50}}]
-                            });
-                        },
-
-                        onApprove: function(data, actions) {
-                            return actions.order.capture().then(function(orderData) {
-
-                                // Full available details
-                                console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
-
-                                // Show a success message within this page, e.g.
-                                const element = document.getElementById('paypal-button-container');
-                                element.innerHTML = '';
-                                element.innerHTML = '<h3>Thank you for your payment!</h3>';
-
-                                // Or go to another URL:  actions.redirect('thank_you.html');
-
-                            });
-                        },
-
-                        onError: function(err) {
-                            console.log(err);
-                        }
-                    }).render('#paypal-button-container');
-                }
-                initPayPalButton();
-            </script>
         </div>
         <div id="tray">
             <div class="count">
@@ -81,7 +57,7 @@
             <i class="fa fa-shopping-basket fa-2x" aria-hidden="true"></i>
         </div>
 
-        <h2> Buy website when choose products to add in your cart.</h2>
+        <h2> Buy website when choose products to add in your cart. Price: 50$</h2>
 
         <div id="market">
 

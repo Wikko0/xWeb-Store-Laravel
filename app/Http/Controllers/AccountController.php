@@ -17,4 +17,5 @@ class AccountController extends Controller
 
         return view('account');
     }
+
 }
