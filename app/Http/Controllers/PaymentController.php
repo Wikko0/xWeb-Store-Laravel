@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BuyMail;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Omnipay\Common\Http\Exception;
 use Omnipay\Omnipay;
 Use App\Models\Payment;
+use Illuminate\Support\Facades\Auth;
 
 
 class PaymentController extends Controller
@@ -67,6 +70,13 @@ return $e->getMessage();
                 $payment->currency = env('PAYPAL_CURRENCY');
                 $payment->payment_status = $arr_body['state'];
                 $payment->save();
+
+
+                $options = array(
+                    'product' => 'xWeb CMS', 'amount' => '50$', 'download_link' => 'https://mega.nz/file/FFMC2bZZ#c-yDwucCzjG5UokXCzjoB7FUTAjG7DAv6OSe84iAkUg',
+                );
+                Mail::to(Auth::user()->email)->send(new BuyMail($options));
+
 
                 return redirect()->back()->withSuccess('Payment is successful. You will receive an email with a link to download the website! Check your Email!');
             } else {

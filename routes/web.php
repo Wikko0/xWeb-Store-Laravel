@@ -8,6 +8,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLogin;
 use App\Http\Controllers\PaymentController;
+use App\Mail\BuyMail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
